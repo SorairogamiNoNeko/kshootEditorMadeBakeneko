@@ -8,6 +8,24 @@ namespace kshootEditorMadeBakeneko
 {
 	class MeasureUnit
 	{
-		private Dictionary<Tuple<int, int>, NoteObjectBase> _unit = new Dictionary<Tuple<int, int>, NoteObjectBase>();
+		public enum NoteType
+		{
+			BtShortA,
+			BtShortB,
+			BtShortC,
+			BtShortD,
+			BtLongA,
+			BtLongB,
+			BtLongC,
+			BtLongD,
+			FxChipL,
+			FxChipR,
+			FxLongL,
+			FxLongR,
+			LaserL,
+			LaserR
+		}
+
+		public Dictionary<NoteType, NotesMonoLaneMeasureUnit> Unit { get; set; } = new Dictionary<NoteType, NotesMonoLaneMeasureUnit>();
 	}
 }

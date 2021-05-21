@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace kshootEditorMadeBakeneko
 {
-	class NotePosition : NoteObjectBase
+	class NotePosition
 	{
-		private uint _measure;		// ノートのある小節
 		/* その表紙の _numerator 分割した _denominator 番目のところにノートがある */
 		private uint _denominator;
 		private uint _numerator;

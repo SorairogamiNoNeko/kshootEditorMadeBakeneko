@@ -9,9 +9,12 @@ namespace kshootEditorMadeBakeneko
 {
 	partial class Form1
 	{
+		// 譜面の縦の線
 		private Pen _scoreBasePen = new Pen(Color.FromArgb(128, 128, 128), 1);
-		private Pen _blueLazerBackgroundPen = new Pen(Color.FromArgb(0, 64, 64), 9);
-		private Pen _redLazerBackgroundPen = new Pen(Color.FromArgb(80, 0, 80), 9);
+		// レーザー赤青の背景
+		private Pen _blueLazerBackgroundPen = new Pen(Color.FromArgb(0, 48, 48), 9);
+		private Pen _redLazerBackgroundPen = new Pen(Color.FromArgb(60, 0, 60), 9);
+		// 小節線
 		private Pen _scoreBarLinePen = new Pen(Color.FromArgb(64, 64, 64), 1);
 		private Point _scoreMargin = new Point(5, 10);
 		private Point _scorePadding = new Point(35, 0);
@@ -37,42 +40,44 @@ namespace kshootEditorMadeBakeneko
 		{
 			for (int i = 0; i < _testDrawTimes; i++)
 			{
-				DrawMonoScoreBase(_scoreMargin.X + _ScoreInterval * i);
+				DrawMonoScoreBase(_scoreMargin.X + _ScoreInterval * i, _laneLength);
 			}
 		}
 
-		private void DrawScoreBarLine()
+		private void DrawScoreBarLine(Point point, bool yellow = false)
 		{
 
 		}
 
-		private void DrawMonoScoreBase(int posX)
+		private void DrawMonoScoreBase(int posX, int length)
 		{
+			int start_y = mainBox.Size.Height - _scoreMargin.Y + _scorePadding.Y;
+
 			for (int i = 0; i < 5; i++)
 			{
 				_mainBoxGrp.DrawLine(
 					_scoreBasePen,
 					posX + _scorePadding.X + _monoLaneWidth * i,
-					_scoreMargin.Y,
+					start_y,
 					posX + _scorePadding.X + _monoLaneWidth * i,
-					_scoreMargin.Y + _laneLength);
+					start_y - length);
 			}
 
 			_mainBoxGrp.DrawLine(
 					_blueLazerBackgroundPen,
 					posX + _scorePadding.X - _monoLaneWidth / 2,
-					_scoreMargin.Y,
+					start_y,
 					posX + _scorePadding.X - _monoLaneWidth / 2,
-					_scoreMargin.Y + _laneLength + 1);
+					start_y - length);
 
 			_mainBoxGrp.DrawLine(
 					_redLazerBackgroundPen,
 					posX + _scorePadding.X + _monoLaneWidth * 4.5f,
-					_scoreMargin.Y,
+					start_y,
 					posX + _scorePadding.X + _monoLaneWidth * 4.5f,
-					_scoreMargin.Y + _laneLength + 1);
+					start_y - length);
 
-			
-}
+
+		}
 	}
 }

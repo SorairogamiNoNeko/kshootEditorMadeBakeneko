@@ -18,6 +18,7 @@ namespace kshootEditorMadeBakeneko
 		private bool _isMouseDown = false;
 		private Point _startPoint;
 		private Point _endPoint;
+		private NotesData _notesData = new NotesData();
 
 		partial void ParameterInitialize();
 

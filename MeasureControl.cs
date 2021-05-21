@@ -11,13 +11,11 @@ namespace kshootEditorMadeBakeneko
 	/// </summary>
 	class MeasureControl
 	{
-		private List<BeatChangeData> _changes = new List<BeatChangeData>();
+		private List<BeatChangeData> Changes { get; set; } = new List<BeatChangeData>();
 
-		public List<BeatChangeData> Changes { get => _changes; set => _changes = value; }
-
-		MeasureControl()
+		public MeasureControl()
 		{
-			Changes.Add(new BeatChangeData(0, 4, 4));
+			Changes.Add(new BeatChangeData(1, 4, 4));
 		}
 	}
 }

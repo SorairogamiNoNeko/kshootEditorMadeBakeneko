@@ -8,15 +8,11 @@ namespace kshootEditorMadeBakeneko
 {
 	class NotesData
 	{
-		public List<List<NotePosition>> Bt { get; set; } = new List<List<NotePosition>>();
-		public List<List<NotePosition>> Fx { get; set; } = new List<List<NotePosition>>();
-		public List<List<LazerChain>> Lazer { get; set; } = new List<List<LazerChain>>();
-
-		private Dictionary<int, Dictionary<Tuple<int, int>, NoteObjectBase>> _notesInfo = new Dictionary<int, Dictionary<Tuple<int, int>, NoteObjectBase>>();
+		public Dictionary<int, MeasureUnit> NotesInfo { get; set; } = new Dictionary<int, MeasureUnit>();
+		public MeasureControl BeatChangeInfo { get; set; } = new MeasureControl();
 
 		public NotesData()
 		{
-			_notesInfo[1] = 
 		}
 	}
 }
