@@ -19,8 +19,11 @@ namespace kshootEditorMadeBakeneko
 		private Point _startPoint;
 		private Point _endPoint;
 		private NotesData _notesData = new NotesData();
+		private MeasureControl _measureCtr = new MeasureControl();
+		private EachMeasurePosition _lanePos = new EachMeasurePosition();
+		private EachLaneStartMeasure _startMeasure;
 
-		partial void ParameterInitialize();
+		partial void BaseParameterInitialize();
 
 		public Form1()
 		{
@@ -31,12 +34,17 @@ namespace kshootEditorMadeBakeneko
 			mainBox.MouseMove += MainBox_MouseMove;
 			mainBox.MouseUp += MainBox_MouseUp;
 
-			ParameterInitialize();
+			BaseParameterInitialize();
+
+			_measureCtr.Changes.Add(new TimeSignatureChangeData(8, 5, 4));
+			_measureCtr.Changes.Add(new TimeSignatureChangeData(14, 3, 4));
+
+			_startMeasure = new EachLaneStartMeasure(_measureCtr, _laneLength, _measureCtr.Changes.Last().GetMeasure(), ref
+				_lanePos);
 		}
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-
 			_mainBoxBmp = new Bitmap(mainBox.Size.Width, mainBox.Size.Height);
 			mainBox.Image = _mainBoxBmp;
 
