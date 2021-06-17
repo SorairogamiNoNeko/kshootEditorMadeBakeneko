@@ -39,6 +39,8 @@ namespace kshootEditorMadeBakeneko
 		/// </summary>
 		private void DrawScoreBase()
 		{
+			_startMeasure.SetLanePos(_measureCtr, mainBox.Height - _scoreMargin.Y * 2 - _scorePadding.Y * 2, _measureCtr.Changes.Last().GetMeasure(), ref _lanePos);
+
 			for (int i = 0; i < _testDrawTimes; i++)
 			{
 				DrawMonoScoreBase(_scoreMargin.X + _scoreInterval * i, _startMeasure.LaneHeight[i]);
@@ -58,7 +60,7 @@ namespace kshootEditorMadeBakeneko
 
 		private void DrawMonoScoreBase(int posX, int length)
 		{
-			int start_y = mainBox.Size.Height - _scoreMargin.Y + _scorePadding.Y;
+			int start_y = mainBox.Size.Height - _scoreMargin.Y - _scorePadding.Y;
 
 			for (int i = 0; i < 5; i++)
 			{

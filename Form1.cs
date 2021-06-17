@@ -30,9 +30,7 @@ namespace kshootEditorMadeBakeneko
 			InitializeComponent();
 
 			/* イベントデリゲートの追加 */
-			mainBox.MouseDown += MainBox_MouseDown;
-			mainBox.MouseMove += MainBox_MouseMove;
-			mainBox.MouseUp += MainBox_MouseUp;
+			AddDeligate();
 
 			BaseParameterInitialize();
 
@@ -43,16 +41,56 @@ namespace kshootEditorMadeBakeneko
 				_lanePos);
 		}
 
-		private void Form1_Load(object sender, EventArgs e)
+		private void AddDeligate()
 		{
+			this.Resize += Form1_Resize;
+
+			mainBox.MouseDown += MainBox_MouseDown;
+			mainBox.MouseMove += MainBox_MouseMove;
+			mainBox.MouseUp += MainBox_MouseUp;
+		}
+
+		private void FixMainBoxSize()
+		{
+			_mainBoxGrp.Clear(mainBox.BackColor);
+			mainBox.Location = new Point(150, 49);
+			mainBox.Size = this.Size - new Size(mainBox.Location.X, mainBox.Location.Y + toolStrip1.Height + menuStrip1.Height - 10);
+			_mainBoxBmp.Dispose();
 			_mainBoxBmp = new Bitmap(mainBox.Size.Width, mainBox.Size.Height);
 			mainBox.Image = _mainBoxBmp;
-
 			_mainBoxGrp = Graphics.FromImage(mainBox.Image);
+		}
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			mainBox.Location = new Point(150, 49);
+			mainBox.Size = this.Size - new Size(mainBox.Location.X, mainBox.Location.Y + toolStrip1.Height + menuStrip1.Height - 10);
+			_mainBoxBmp = new Bitmap(mainBox.Size.Width, mainBox.Size.Height);
+			mainBox.Image = _mainBoxBmp;
+			_mainBoxGrp = Graphics.FromImage(mainBox.Image);
+
 			_selectionAreaPen = new Pen(Brushes.LightGray);
 
 			DrawScoreBase();
 
+			mainBox.Refresh();
+		}
+
+		private void Form1_Resize(object sender, EventArgs e)
+		{
+			Control c = (Control)sender;
+
+			if(c.Width < BaseDefines.FormMinimumSize.Width)
+			{
+				c.Width = BaseDefines.FormMinimumSize.Width;
+			}
+			if(c.Height < BaseDefines.FormMinimumSize.Height)
+			{
+				c.Height = BaseDefines.FormMinimumSize.Height;
+			}
+
+			FixMainBoxSize();
+			DrawScoreBase();
 			mainBox.Refresh();
 		}
 
@@ -64,7 +102,6 @@ namespace kshootEditorMadeBakeneko
 			}
 			_isMouseDown = true;
 			_startPoint = PointToClient(Point.Subtract(Cursor.Position, new Size(mainBox.Location)));
-
 			_mainBoxGrp.Clear(mainBox.BackColor);
 			DrawScoreBase();
 			mainBox.Refresh();

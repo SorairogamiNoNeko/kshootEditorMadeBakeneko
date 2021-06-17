@@ -24,6 +24,11 @@ namespace kshootEditorMadeBakeneko
 
 		public EachLaneStartMeasure(in MeasureControl ctr, in int height, in int finalObjMeasure, ref EachMeasurePosition measurePos)
 		{
+			SetLanePos(ctr, height, finalObjMeasure, ref measurePos);
+		}
+
+		public void SetLanePos(in MeasureControl ctr, in int height, in int finalObjMeasure, ref EachMeasurePosition measurePos)
+		{
 			int after_end_count = 0;
 			int current_measure = 1;
 			int current_denominator = 4;
@@ -32,6 +37,10 @@ namespace kshootEditorMadeBakeneko
 
 			bool inf_loop_guard = false;
 			int guard_count = 0;
+
+			StartMeasures.Clear();
+			measurePos.Positions.Clear();
+			LaneHeight.Clear();
 
 			while (after_end_count < 10)
 			{
@@ -67,16 +76,16 @@ namespace kshootEditorMadeBakeneko
 					measure_height = (int)(BaseDefines.BaseMeasureHeight * ((double)measure_data.GetDenominator() / measure_data.GetNumerator()));
 				}
 
-				if(inf_loop_guard == true)
+				if (inf_loop_guard == true)
 				{
 					inf_loop_guard = false;
 				}
 				else
 				{
 					guard_count++;
-					if(guard_count > 3)
+					if (guard_count > 3)
 					{
-						System.Diagnostics.Debug.WriteLine("無限ループに陥る可能性があるため、ガードされました");
+						System.Windows.Forms.MessageBox.Show("無限ループに陥る可能性があるため、ガードされました", "Inf loog guard", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
 						throw new System.TimeoutException("無限ループに陥る可能性があるため、ガードされました");
 					}
 				}
